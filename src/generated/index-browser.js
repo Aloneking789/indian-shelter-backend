@@ -166,6 +166,22 @@ exports.Prisma.ImportBatchScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TeamMemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  designation: 'designation',
+  photoUrl: 'photoUrl',
+  bio: 'bio',
+  email: 'email',
+  phone: 'phone',
+  department: 'department',
+  order: 'order',
+  isActive: 'isActive',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -207,7 +223,8 @@ exports.ImportStatus = exports.$Enums.ImportStatus = {
 exports.Prisma.ModelName = {
   User: 'User',
   Template: 'Template',
-  ImportBatch: 'ImportBatch'
+  ImportBatch: 'ImportBatch',
+  TeamMember: 'TeamMember'
 };
 
 /**

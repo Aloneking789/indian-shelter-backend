@@ -29,3 +29,11 @@ export const upload = multer({
   },
   fileFilter
 });
+
+// Storage upload supporting images, documents, PDFs, and all general media types
+export const uploadStorage = multer({
+  storage,
+  limits: {
+    fileSize: 50 * 1024 * 1024 // 50 MB max
+  }
+});

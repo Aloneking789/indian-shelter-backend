@@ -4,6 +4,8 @@ import authRoutes from "./routes/authRoutes.js";
 import templateRoutes from "./routes/templateRoutes.js";
 import importRoutes from "./routes/importRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import storageRoutes from "./routes/storageRoutes.js";
+import teamRoutes from "./routes/teamRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -31,6 +33,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/templates", templateRoutes);
 app.use("/api/import", importRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/storage", storageRoutes);
+app.use("/api/team", teamRoutes);
 
 // Catch 404 for unknown endpoints
 app.use((req, res) => {

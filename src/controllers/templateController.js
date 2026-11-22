@@ -331,9 +331,8 @@ export async function getOwners(req, res, next) {
       orderBy: { ownerName: "asc" }
     });
 
-    const owners = records
-      .map(r => r.ownerName)
-      .filter(Boolean);
+    const rawOwners = records.map(r => (r.ownerName ? r.ownerName.trim() : "")).filter(Boolean);
+    const owners = Array.from(new Set(rawOwners)).sort((a, b) => a.localeCompare(b));
 
     return res.status(200).json({
       success: true,

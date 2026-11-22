@@ -11,10 +11,12 @@ async function main() {
 
   const admin = await prisma.user.upsert({
     where: { employeeId: "IS-ADM-001" },
-    update: {},
+    update: {
+      name: "Ayush Vishwakarma (System Admin)"
+    },
     create: {
       employeeId: "IS-ADM-001",
-      name: "Abhay Sharma (System Admin)",
+      name: "Ayush Vishwakarma (System Admin)",
       email: "admin@indiashelter.in",
       passwordHash: adminPassword,
       role: "ADMIN",
@@ -25,10 +27,12 @@ async function main() {
 
   const employee = await prisma.user.upsert({
     where: { employeeId: "IS-EMP-001" },
-    update: {},
+    update: {
+      name: "Team (Operations Lead)"
+    },
     create: {
       employeeId: "IS-EMP-001",
-      name: "Pooja Verma (Operations Lead)",
+      name: "Team (Operations Lead)",
       email: "employee@indiashelter.in",
       passwordHash: employeePassword,
       role: "EMPLOYEE",

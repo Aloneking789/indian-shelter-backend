@@ -42,6 +42,9 @@ model User {
   // Import history
   importBatches ImportBatch[]
 
+  // Team members created
+  createdTeamMembers TeamMember[] @relation("TeamMemberCreatedBy")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -139,4 +142,32 @@ model ImportBatch {
   @@index([importedById])
   @@index([createdAt])
   @@map("import_batches")
+}
+
+// ----------------------------------
+// MEET OUR TEAM MEMBER
+// ----------------------------------
+
+model TeamMember {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  designation String
+  photoUrl    String  @db.Text
+  bio         String? @db.Text
+  email       String?
+  phone       String?
+  department  String?
+  order       Int     @default(0)
+  isActive    Boolean @default(true)
+
+  createdById String? @db.Uuid
+  createdBy   User?   @relation("TeamMemberCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+  @@index([isActive])
+  @@index([department])
+  @@map("team_members")
 }
