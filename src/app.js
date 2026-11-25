@@ -7,6 +7,7 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import storageRoutes from "./routes/storageRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
+import linkRoutes from "./routes/linkRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/storage", storageRoutes);
 app.use("/api/team", teamRoutes);
 app.use("/api/staff", staffRoutes);
+app.use("/api/links", linkRoutes);
 
 // Catch 404 for unknown endpoints
 app.use((req, res) => {

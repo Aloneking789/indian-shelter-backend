@@ -46,6 +46,9 @@ model User {
   // Team members created
   createdTeamMembers TeamMember[] @relation("TeamMemberCreatedBy")
 
+  // Resource links created (Policies, PMAY)
+  createdResourceLinks ResourceLink[] @relation("ResourceLinkCreatedBy")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -174,3 +177,34 @@ model TeamMember {
   @@index([department])
   @@map("team_members")
 }
+
+// ----------------------------------
+// RESOURCE LINKS (POLICIES & PMAY)
+// ----------------------------------
+
+enum LinkCategory {
+  POLICY
+  PMAY
+}
+
+model ResourceLink {
+  id          String       @id @default(uuid()) @db.Uuid
+  category    LinkCategory
+  title       String
+  url         String       @db.Text
+  description String?      @db.Text
+  order       Int          @default(0)
+  isActive    Boolean      @default(true)
+
+  createdById String?      @db.Uuid
+  createdBy   User?        @relation("ResourceLinkCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([category])
+  @@index([order])
+  @@index([isActive])
+  @@map("resource_links")
+}
+

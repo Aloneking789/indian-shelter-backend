@@ -24,9 +24,8 @@ router.get("/frequencies", getFrequencies);
 router.post("/", createTemplate);
 router.get("/", getTemplates);
 router.get("/:id", getTemplateById);
-router.patch("/:id", updateTemplate);
-
-// Soft delete requires ADMIN role
+// Update and soft delete require ADMIN role
+router.patch("/:id", authorize("ADMIN"), updateTemplate);
 router.delete("/:id", authorize("ADMIN"), deleteTemplate);
 
 export default router;

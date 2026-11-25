@@ -33,6 +33,11 @@ export type ImportBatch = $Result.DefaultSelection<Prisma.$ImportBatchPayload>
  * 
  */
 export type TeamMember = $Result.DefaultSelection<Prisma.$TeamMemberPayload>
+/**
+ * Model ResourceLink
+ * 
+ */
+export type ResourceLink = $Result.DefaultSelection<Prisma.$ResourceLinkPayload>
 
 /**
  * Enums
@@ -56,6 +61,14 @@ export const ImportStatus: {
 
 export type ImportStatus = (typeof ImportStatus)[keyof typeof ImportStatus]
 
+
+export const LinkCategory: {
+  POLICY: 'POLICY',
+  PMAY: 'PMAY'
+};
+
+export type LinkCategory = (typeof LinkCategory)[keyof typeof LinkCategory]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -65,6 +78,10 @@ export const UserRole: typeof $Enums.UserRole
 export type ImportStatus = $Enums.ImportStatus
 
 export const ImportStatus: typeof $Enums.ImportStatus
+
+export type LinkCategory = $Enums.LinkCategory
+
+export const LinkCategory: typeof $Enums.LinkCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -226,6 +243,16 @@ export class PrismaClient<
     * ```
     */
   get teamMember(): Prisma.TeamMemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.resourceLink`: Exposes CRUD operations for the **ResourceLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResourceLinks
+    * const resourceLinks = await prisma.resourceLink.findMany()
+    * ```
+    */
+  get resourceLink(): Prisma.ResourceLinkDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -676,7 +703,8 @@ export namespace Prisma {
     User: 'User',
     Template: 'Template',
     ImportBatch: 'ImportBatch',
-    TeamMember: 'TeamMember'
+    TeamMember: 'TeamMember',
+    ResourceLink: 'ResourceLink'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -692,7 +720,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "template" | "importBatch" | "teamMember"
+      modelProps: "user" | "template" | "importBatch" | "teamMember" | "resourceLink"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -992,6 +1020,80 @@ export namespace Prisma {
           }
         }
       }
+      ResourceLink: {
+        payload: Prisma.$ResourceLinkPayload<ExtArgs>
+        fields: Prisma.ResourceLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResourceLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResourceLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.ResourceLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResourceLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          findMany: {
+            args: Prisma.ResourceLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>[]
+          }
+          create: {
+            args: Prisma.ResourceLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          createMany: {
+            args: Prisma.ResourceLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResourceLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.ResourceLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          update: {
+            args: Prisma.ResourceLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResourceLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResourceLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ResourceLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.ResourceLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourceLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.ResourceLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResourceLink>
+          }
+          groupBy: {
+            args: Prisma.ResourceLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResourceLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResourceLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<ResourceLinkCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1119,6 +1221,7 @@ export namespace Prisma {
     template?: TemplateOmit
     importBatch?: ImportBatchOmit
     teamMember?: TeamMemberOmit
+    resourceLink?: ResourceLinkOmit
   }
 
   /* Types for Logging */
@@ -1203,6 +1306,7 @@ export namespace Prisma {
     updatedTemplates: number
     importBatches: number
     createdTeamMembers: number
+    createdResourceLinks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1210,6 +1314,7 @@ export namespace Prisma {
     updatedTemplates?: boolean | UserCountOutputTypeCountUpdatedTemplatesArgs
     importBatches?: boolean | UserCountOutputTypeCountImportBatchesArgs
     createdTeamMembers?: boolean | UserCountOutputTypeCountCreatedTeamMembersArgs
+    createdResourceLinks?: boolean | UserCountOutputTypeCountCreatedResourceLinksArgs
   }
 
   // Custom InputTypes
@@ -1249,6 +1354,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCreatedTeamMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeamMemberWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedResourceLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceLinkWhereInput
   }
 
 
@@ -1487,6 +1599,7 @@ export namespace Prisma {
     updatedTemplates?: boolean | User$updatedTemplatesArgs<ExtArgs>
     importBatches?: boolean | User$importBatchesArgs<ExtArgs>
     createdTeamMembers?: boolean | User$createdTeamMembersArgs<ExtArgs>
+    createdResourceLinks?: boolean | User$createdResourceLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1532,6 +1645,7 @@ export namespace Prisma {
     updatedTemplates?: boolean | User$updatedTemplatesArgs<ExtArgs>
     importBatches?: boolean | User$importBatchesArgs<ExtArgs>
     createdTeamMembers?: boolean | User$createdTeamMembersArgs<ExtArgs>
+    createdResourceLinks?: boolean | User$createdResourceLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1544,6 +1658,7 @@ export namespace Prisma {
       updatedTemplates: Prisma.$TemplatePayload<ExtArgs>[]
       importBatches: Prisma.$ImportBatchPayload<ExtArgs>[]
       createdTeamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
+      createdResourceLinks: Prisma.$ResourceLinkPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1953,6 +2068,7 @@ export namespace Prisma {
     updatedTemplates<T extends User$updatedTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, User$updatedTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     importBatches<T extends User$importBatchesArgs<ExtArgs> = {}>(args?: Subset<T, User$importBatchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImportBatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdTeamMembers<T extends User$createdTeamMembersArgs<ExtArgs> = {}>(args?: Subset<T, User$createdTeamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdResourceLinks<T extends User$createdResourceLinksArgs<ExtArgs> = {}>(args?: Subset<T, User$createdResourceLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2477,6 +2593,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdResourceLinks
+   */
+  export type User$createdResourceLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    where?: ResourceLinkWhereInput
+    orderBy?: ResourceLinkOrderByWithRelationInput | ResourceLinkOrderByWithRelationInput[]
+    cursor?: ResourceLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResourceLinkScalarFieldEnum | ResourceLinkScalarFieldEnum[]
   }
 
   /**
@@ -6224,6 +6364,1187 @@ export namespace Prisma {
 
 
   /**
+   * Model ResourceLink
+   */
+
+  export type AggregateResourceLink = {
+    _count: ResourceLinkCountAggregateOutputType | null
+    _avg: ResourceLinkAvgAggregateOutputType | null
+    _sum: ResourceLinkSumAggregateOutputType | null
+    _min: ResourceLinkMinAggregateOutputType | null
+    _max: ResourceLinkMaxAggregateOutputType | null
+  }
+
+  export type ResourceLinkAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type ResourceLinkSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type ResourceLinkMinAggregateOutputType = {
+    id: string | null
+    category: $Enums.LinkCategory | null
+    title: string | null
+    url: string | null
+    description: string | null
+    order: number | null
+    isActive: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResourceLinkMaxAggregateOutputType = {
+    id: string | null
+    category: $Enums.LinkCategory | null
+    title: string | null
+    url: string | null
+    description: string | null
+    order: number | null
+    isActive: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResourceLinkCountAggregateOutputType = {
+    id: number
+    category: number
+    title: number
+    url: number
+    description: number
+    order: number
+    isActive: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ResourceLinkAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type ResourceLinkSumAggregateInputType = {
+    order?: true
+  }
+
+  export type ResourceLinkMinAggregateInputType = {
+    id?: true
+    category?: true
+    title?: true
+    url?: true
+    description?: true
+    order?: true
+    isActive?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResourceLinkMaxAggregateInputType = {
+    id?: true
+    category?: true
+    title?: true
+    url?: true
+    description?: true
+    order?: true
+    isActive?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResourceLinkCountAggregateInputType = {
+    id?: true
+    category?: true
+    title?: true
+    url?: true
+    description?: true
+    order?: true
+    isActive?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ResourceLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResourceLink to aggregate.
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResourceLinks to fetch.
+     */
+    orderBy?: ResourceLinkOrderByWithRelationInput | ResourceLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResourceLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResourceLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResourceLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResourceLinks
+    **/
+    _count?: true | ResourceLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ResourceLinkAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ResourceLinkSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResourceLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResourceLinkMaxAggregateInputType
+  }
+
+  export type GetResourceLinkAggregateType<T extends ResourceLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateResourceLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResourceLink[P]>
+      : GetScalarType<T[P], AggregateResourceLink[P]>
+  }
+
+
+
+
+  export type ResourceLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceLinkWhereInput
+    orderBy?: ResourceLinkOrderByWithAggregationInput | ResourceLinkOrderByWithAggregationInput[]
+    by: ResourceLinkScalarFieldEnum[] | ResourceLinkScalarFieldEnum
+    having?: ResourceLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResourceLinkCountAggregateInputType | true
+    _avg?: ResourceLinkAvgAggregateInputType
+    _sum?: ResourceLinkSumAggregateInputType
+    _min?: ResourceLinkMinAggregateInputType
+    _max?: ResourceLinkMaxAggregateInputType
+  }
+
+  export type ResourceLinkGroupByOutputType = {
+    id: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description: string | null
+    order: number
+    isActive: boolean
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ResourceLinkCountAggregateOutputType | null
+    _avg: ResourceLinkAvgAggregateOutputType | null
+    _sum: ResourceLinkSumAggregateOutputType | null
+    _min: ResourceLinkMinAggregateOutputType | null
+    _max: ResourceLinkMaxAggregateOutputType | null
+  }
+
+  type GetResourceLinkGroupByPayload<T extends ResourceLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResourceLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResourceLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResourceLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], ResourceLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResourceLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    category?: boolean
+    title?: boolean
+    url?: boolean
+    description?: boolean
+    order?: boolean
+    isActive?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["resourceLink"]>
+
+  export type ResourceLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    category?: boolean
+    title?: boolean
+    url?: boolean
+    description?: boolean
+    order?: boolean
+    isActive?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["resourceLink"]>
+
+  export type ResourceLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    category?: boolean
+    title?: boolean
+    url?: boolean
+    description?: boolean
+    order?: boolean
+    isActive?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["resourceLink"]>
+
+  export type ResourceLinkSelectScalar = {
+    id?: boolean
+    category?: boolean
+    title?: boolean
+    url?: boolean
+    description?: boolean
+    order?: boolean
+    isActive?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ResourceLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "category" | "title" | "url" | "description" | "order" | "isActive" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["resourceLink"]>
+  export type ResourceLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }
+  export type ResourceLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }
+  export type ResourceLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ResourceLink$createdByArgs<ExtArgs>
+  }
+
+  export type $ResourceLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResourceLink"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      category: $Enums.LinkCategory
+      title: string
+      url: string
+      description: string | null
+      order: number
+      isActive: boolean
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["resourceLink"]>
+    composites: {}
+  }
+
+  type ResourceLinkGetPayload<S extends boolean | null | undefined | ResourceLinkDefaultArgs> = $Result.GetResult<Prisma.$ResourceLinkPayload, S>
+
+  type ResourceLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResourceLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResourceLinkCountAggregateInputType | true
+    }
+
+  export interface ResourceLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResourceLink'], meta: { name: 'ResourceLink' } }
+    /**
+     * Find zero or one ResourceLink that matches the filter.
+     * @param {ResourceLinkFindUniqueArgs} args - Arguments to find a ResourceLink
+     * @example
+     * // Get one ResourceLink
+     * const resourceLink = await prisma.resourceLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResourceLinkFindUniqueArgs>(args: SelectSubset<T, ResourceLinkFindUniqueArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ResourceLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResourceLinkFindUniqueOrThrowArgs} args - Arguments to find a ResourceLink
+     * @example
+     * // Get one ResourceLink
+     * const resourceLink = await prisma.resourceLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResourceLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, ResourceLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResourceLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkFindFirstArgs} args - Arguments to find a ResourceLink
+     * @example
+     * // Get one ResourceLink
+     * const resourceLink = await prisma.resourceLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResourceLinkFindFirstArgs>(args?: SelectSubset<T, ResourceLinkFindFirstArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResourceLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkFindFirstOrThrowArgs} args - Arguments to find a ResourceLink
+     * @example
+     * // Get one ResourceLink
+     * const resourceLink = await prisma.resourceLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResourceLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, ResourceLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ResourceLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResourceLinks
+     * const resourceLinks = await prisma.resourceLink.findMany()
+     * 
+     * // Get first 10 ResourceLinks
+     * const resourceLinks = await prisma.resourceLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const resourceLinkWithIdOnly = await prisma.resourceLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResourceLinkFindManyArgs>(args?: SelectSubset<T, ResourceLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ResourceLink.
+     * @param {ResourceLinkCreateArgs} args - Arguments to create a ResourceLink.
+     * @example
+     * // Create one ResourceLink
+     * const ResourceLink = await prisma.resourceLink.create({
+     *   data: {
+     *     // ... data to create a ResourceLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResourceLinkCreateArgs>(args: SelectSubset<T, ResourceLinkCreateArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ResourceLinks.
+     * @param {ResourceLinkCreateManyArgs} args - Arguments to create many ResourceLinks.
+     * @example
+     * // Create many ResourceLinks
+     * const resourceLink = await prisma.resourceLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResourceLinkCreateManyArgs>(args?: SelectSubset<T, ResourceLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResourceLinks and returns the data saved in the database.
+     * @param {ResourceLinkCreateManyAndReturnArgs} args - Arguments to create many ResourceLinks.
+     * @example
+     * // Create many ResourceLinks
+     * const resourceLink = await prisma.resourceLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResourceLinks and only return the `id`
+     * const resourceLinkWithIdOnly = await prisma.resourceLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResourceLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, ResourceLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ResourceLink.
+     * @param {ResourceLinkDeleteArgs} args - Arguments to delete one ResourceLink.
+     * @example
+     * // Delete one ResourceLink
+     * const ResourceLink = await prisma.resourceLink.delete({
+     *   where: {
+     *     // ... filter to delete one ResourceLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResourceLinkDeleteArgs>(args: SelectSubset<T, ResourceLinkDeleteArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ResourceLink.
+     * @param {ResourceLinkUpdateArgs} args - Arguments to update one ResourceLink.
+     * @example
+     * // Update one ResourceLink
+     * const resourceLink = await prisma.resourceLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResourceLinkUpdateArgs>(args: SelectSubset<T, ResourceLinkUpdateArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ResourceLinks.
+     * @param {ResourceLinkDeleteManyArgs} args - Arguments to filter ResourceLinks to delete.
+     * @example
+     * // Delete a few ResourceLinks
+     * const { count } = await prisma.resourceLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResourceLinkDeleteManyArgs>(args?: SelectSubset<T, ResourceLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResourceLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResourceLinks
+     * const resourceLink = await prisma.resourceLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResourceLinkUpdateManyArgs>(args: SelectSubset<T, ResourceLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResourceLinks and returns the data updated in the database.
+     * @param {ResourceLinkUpdateManyAndReturnArgs} args - Arguments to update many ResourceLinks.
+     * @example
+     * // Update many ResourceLinks
+     * const resourceLink = await prisma.resourceLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ResourceLinks and only return the `id`
+     * const resourceLinkWithIdOnly = await prisma.resourceLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ResourceLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, ResourceLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ResourceLink.
+     * @param {ResourceLinkUpsertArgs} args - Arguments to update or create a ResourceLink.
+     * @example
+     * // Update or create a ResourceLink
+     * const resourceLink = await prisma.resourceLink.upsert({
+     *   create: {
+     *     // ... data to create a ResourceLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResourceLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResourceLinkUpsertArgs>(args: SelectSubset<T, ResourceLinkUpsertArgs<ExtArgs>>): Prisma__ResourceLinkClient<$Result.GetResult<Prisma.$ResourceLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ResourceLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkCountArgs} args - Arguments to filter ResourceLinks to count.
+     * @example
+     * // Count the number of ResourceLinks
+     * const count = await prisma.resourceLink.count({
+     *   where: {
+     *     // ... the filter for the ResourceLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResourceLinkCountArgs>(
+      args?: Subset<T, ResourceLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResourceLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResourceLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResourceLinkAggregateArgs>(args: Subset<T, ResourceLinkAggregateArgs>): Prisma.PrismaPromise<GetResourceLinkAggregateType<T>>
+
+    /**
+     * Group by ResourceLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResourceLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResourceLinkGroupByArgs['orderBy'] }
+        : { orderBy?: ResourceLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResourceLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResourceLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResourceLink model
+   */
+  readonly fields: ResourceLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResourceLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResourceLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends ResourceLink$createdByArgs<ExtArgs> = {}>(args?: Subset<T, ResourceLink$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResourceLink model
+   */
+  interface ResourceLinkFieldRefs {
+    readonly id: FieldRef<"ResourceLink", 'String'>
+    readonly category: FieldRef<"ResourceLink", 'LinkCategory'>
+    readonly title: FieldRef<"ResourceLink", 'String'>
+    readonly url: FieldRef<"ResourceLink", 'String'>
+    readonly description: FieldRef<"ResourceLink", 'String'>
+    readonly order: FieldRef<"ResourceLink", 'Int'>
+    readonly isActive: FieldRef<"ResourceLink", 'Boolean'>
+    readonly createdById: FieldRef<"ResourceLink", 'String'>
+    readonly createdAt: FieldRef<"ResourceLink", 'DateTime'>
+    readonly updatedAt: FieldRef<"ResourceLink", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResourceLink findUnique
+   */
+  export type ResourceLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which ResourceLink to fetch.
+     */
+    where: ResourceLinkWhereUniqueInput
+  }
+
+  /**
+   * ResourceLink findUniqueOrThrow
+   */
+  export type ResourceLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which ResourceLink to fetch.
+     */
+    where: ResourceLinkWhereUniqueInput
+  }
+
+  /**
+   * ResourceLink findFirst
+   */
+  export type ResourceLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which ResourceLink to fetch.
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResourceLinks to fetch.
+     */
+    orderBy?: ResourceLinkOrderByWithRelationInput | ResourceLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResourceLinks.
+     */
+    cursor?: ResourceLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResourceLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResourceLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResourceLinks.
+     */
+    distinct?: ResourceLinkScalarFieldEnum | ResourceLinkScalarFieldEnum[]
+  }
+
+  /**
+   * ResourceLink findFirstOrThrow
+   */
+  export type ResourceLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which ResourceLink to fetch.
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResourceLinks to fetch.
+     */
+    orderBy?: ResourceLinkOrderByWithRelationInput | ResourceLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResourceLinks.
+     */
+    cursor?: ResourceLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResourceLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResourceLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResourceLinks.
+     */
+    distinct?: ResourceLinkScalarFieldEnum | ResourceLinkScalarFieldEnum[]
+  }
+
+  /**
+   * ResourceLink findMany
+   */
+  export type ResourceLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which ResourceLinks to fetch.
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResourceLinks to fetch.
+     */
+    orderBy?: ResourceLinkOrderByWithRelationInput | ResourceLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResourceLinks.
+     */
+    cursor?: ResourceLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResourceLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResourceLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResourceLinks.
+     */
+    distinct?: ResourceLinkScalarFieldEnum | ResourceLinkScalarFieldEnum[]
+  }
+
+  /**
+   * ResourceLink create
+   */
+  export type ResourceLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ResourceLink.
+     */
+    data: XOR<ResourceLinkCreateInput, ResourceLinkUncheckedCreateInput>
+  }
+
+  /**
+   * ResourceLink createMany
+   */
+  export type ResourceLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResourceLinks.
+     */
+    data: ResourceLinkCreateManyInput | ResourceLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResourceLink createManyAndReturn
+   */
+  export type ResourceLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many ResourceLinks.
+     */
+    data: ResourceLinkCreateManyInput | ResourceLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResourceLink update
+   */
+  export type ResourceLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ResourceLink.
+     */
+    data: XOR<ResourceLinkUpdateInput, ResourceLinkUncheckedUpdateInput>
+    /**
+     * Choose, which ResourceLink to update.
+     */
+    where: ResourceLinkWhereUniqueInput
+  }
+
+  /**
+   * ResourceLink updateMany
+   */
+  export type ResourceLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResourceLinks.
+     */
+    data: XOR<ResourceLinkUpdateManyMutationInput, ResourceLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which ResourceLinks to update
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * Limit how many ResourceLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResourceLink updateManyAndReturn
+   */
+  export type ResourceLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update ResourceLinks.
+     */
+    data: XOR<ResourceLinkUpdateManyMutationInput, ResourceLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which ResourceLinks to update
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * Limit how many ResourceLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResourceLink upsert
+   */
+  export type ResourceLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ResourceLink to update in case it exists.
+     */
+    where: ResourceLinkWhereUniqueInput
+    /**
+     * In case the ResourceLink found by the `where` argument doesn't exist, create a new ResourceLink with this data.
+     */
+    create: XOR<ResourceLinkCreateInput, ResourceLinkUncheckedCreateInput>
+    /**
+     * In case the ResourceLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResourceLinkUpdateInput, ResourceLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * ResourceLink delete
+   */
+  export type ResourceLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+    /**
+     * Filter which ResourceLink to delete.
+     */
+    where: ResourceLinkWhereUniqueInput
+  }
+
+  /**
+   * ResourceLink deleteMany
+   */
+  export type ResourceLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResourceLinks to delete
+     */
+    where?: ResourceLinkWhereInput
+    /**
+     * Limit how many ResourceLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResourceLink.createdBy
+   */
+  export type ResourceLink$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ResourceLink without action
+   */
+  export type ResourceLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResourceLink
+     */
+    select?: ResourceLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResourceLink
+     */
+    omit?: ResourceLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceLinkInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6309,6 +7630,22 @@ export namespace Prisma {
   };
 
   export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+  export const ResourceLinkScalarFieldEnum: {
+    id: 'id',
+    category: 'category',
+    title: 'title',
+    url: 'url',
+    description: 'description',
+    order: 'order',
+    isActive: 'isActive',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ResourceLinkScalarFieldEnum = (typeof ResourceLinkScalarFieldEnum)[keyof typeof ResourceLinkScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6449,6 +7786,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'LinkCategory'
+   */
+  export type EnumLinkCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LinkCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'LinkCategory[]'
+   */
+  export type ListEnumLinkCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LinkCategory[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -6482,6 +7833,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateListRelationFilter
     importBatches?: ImportBatchListRelationFilter
     createdTeamMembers?: TeamMemberListRelationFilter
+    createdResourceLinks?: ResourceLinkListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6498,6 +7850,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateOrderByRelationAggregateInput
     importBatches?: ImportBatchOrderByRelationAggregateInput
     createdTeamMembers?: TeamMemberOrderByRelationAggregateInput
+    createdResourceLinks?: ResourceLinkOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6517,6 +7870,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateListRelationFilter
     importBatches?: ImportBatchListRelationFilter
     createdTeamMembers?: TeamMemberListRelationFilter
+    createdResourceLinks?: ResourceLinkListRelationFilter
   }, "id" | "employeeId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6857,6 +8211,88 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"TeamMember"> | Date | string
   }
 
+  export type ResourceLinkWhereInput = {
+    AND?: ResourceLinkWhereInput | ResourceLinkWhereInput[]
+    OR?: ResourceLinkWhereInput[]
+    NOT?: ResourceLinkWhereInput | ResourceLinkWhereInput[]
+    id?: UuidFilter<"ResourceLink"> | string
+    category?: EnumLinkCategoryFilter<"ResourceLink"> | $Enums.LinkCategory
+    title?: StringFilter<"ResourceLink"> | string
+    url?: StringFilter<"ResourceLink"> | string
+    description?: StringNullableFilter<"ResourceLink"> | string | null
+    order?: IntFilter<"ResourceLink"> | number
+    isActive?: BoolFilter<"ResourceLink"> | boolean
+    createdById?: UuidNullableFilter<"ResourceLink"> | string | null
+    createdAt?: DateTimeFilter<"ResourceLink"> | Date | string
+    updatedAt?: DateTimeFilter<"ResourceLink"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type ResourceLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    category?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    description?: SortOrderInput | SortOrder
+    order?: SortOrder
+    isActive?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+  }
+
+  export type ResourceLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResourceLinkWhereInput | ResourceLinkWhereInput[]
+    OR?: ResourceLinkWhereInput[]
+    NOT?: ResourceLinkWhereInput | ResourceLinkWhereInput[]
+    category?: EnumLinkCategoryFilter<"ResourceLink"> | $Enums.LinkCategory
+    title?: StringFilter<"ResourceLink"> | string
+    url?: StringFilter<"ResourceLink"> | string
+    description?: StringNullableFilter<"ResourceLink"> | string | null
+    order?: IntFilter<"ResourceLink"> | number
+    isActive?: BoolFilter<"ResourceLink"> | boolean
+    createdById?: UuidNullableFilter<"ResourceLink"> | string | null
+    createdAt?: DateTimeFilter<"ResourceLink"> | Date | string
+    updatedAt?: DateTimeFilter<"ResourceLink"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type ResourceLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    category?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    description?: SortOrderInput | SortOrder
+    order?: SortOrder
+    isActive?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ResourceLinkCountOrderByAggregateInput
+    _avg?: ResourceLinkAvgOrderByAggregateInput
+    _max?: ResourceLinkMaxOrderByAggregateInput
+    _min?: ResourceLinkMinOrderByAggregateInput
+    _sum?: ResourceLinkSumOrderByAggregateInput
+  }
+
+  export type ResourceLinkScalarWhereWithAggregatesInput = {
+    AND?: ResourceLinkScalarWhereWithAggregatesInput | ResourceLinkScalarWhereWithAggregatesInput[]
+    OR?: ResourceLinkScalarWhereWithAggregatesInput[]
+    NOT?: ResourceLinkScalarWhereWithAggregatesInput | ResourceLinkScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ResourceLink"> | string
+    category?: EnumLinkCategoryWithAggregatesFilter<"ResourceLink"> | $Enums.LinkCategory
+    title?: StringWithAggregatesFilter<"ResourceLink"> | string
+    url?: StringWithAggregatesFilter<"ResourceLink"> | string
+    description?: StringNullableWithAggregatesFilter<"ResourceLink"> | string | null
+    order?: IntWithAggregatesFilter<"ResourceLink"> | number
+    isActive?: BoolWithAggregatesFilter<"ResourceLink"> | boolean
+    createdById?: UuidNullableWithAggregatesFilter<"ResourceLink"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ResourceLink"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ResourceLink"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     employeeId: string
@@ -6871,6 +8307,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6887,6 +8324,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUncheckedCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchUncheckedCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberUncheckedCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -6903,6 +8341,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6919,6 +8358,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUncheckedUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUncheckedUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7306,6 +8746,96 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ResourceLinkCreateInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
+    order?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedResourceLinksInput
+  }
+
+  export type ResourceLinkUncheckedCreateInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
+    order?: number
+    isActive?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedResourceLinksNestedInput
+  }
+
+  export type ResourceLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceLinkCreateManyInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
+    order?: number
+    isActive?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7374,6 +8904,12 @@ export namespace Prisma {
     none?: TeamMemberWhereInput
   }
 
+  export type ResourceLinkListRelationFilter = {
+    every?: ResourceLinkWhereInput
+    some?: ResourceLinkWhereInput
+    none?: ResourceLinkWhereInput
+  }
+
   export type TemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -7383,6 +8919,10 @@ export namespace Prisma {
   }
 
   export type TeamMemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResourceLinkOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7855,6 +9395,70 @@ export namespace Prisma {
     order?: SortOrder
   }
 
+  export type EnumLinkCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.LinkCategory | EnumLinkCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLinkCategoryFilter<$PrismaModel> | $Enums.LinkCategory
+  }
+
+  export type ResourceLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isActive?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResourceLinkAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type ResourceLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isActive?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResourceLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isActive?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResourceLinkSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type EnumLinkCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LinkCategory | EnumLinkCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLinkCategoryWithAggregatesFilter<$PrismaModel> | $Enums.LinkCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLinkCategoryFilter<$PrismaModel>
+    _max?: NestedEnumLinkCategoryFilter<$PrismaModel>
+  }
+
   export type TemplateCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<TemplateCreateWithoutCreatedByInput, TemplateUncheckedCreateWithoutCreatedByInput> | TemplateCreateWithoutCreatedByInput[] | TemplateUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: TemplateCreateOrConnectWithoutCreatedByInput | TemplateCreateOrConnectWithoutCreatedByInput[]
@@ -7883,6 +9487,13 @@ export namespace Prisma {
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
   }
 
+  export type ResourceLinkCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput> | ResourceLinkCreateWithoutCreatedByInput[] | ResourceLinkUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ResourceLinkCreateOrConnectWithoutCreatedByInput | ResourceLinkCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ResourceLinkCreateManyCreatedByInputEnvelope
+    connect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+  }
+
   export type TemplateUncheckedCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<TemplateCreateWithoutCreatedByInput, TemplateUncheckedCreateWithoutCreatedByInput> | TemplateCreateWithoutCreatedByInput[] | TemplateUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: TemplateCreateOrConnectWithoutCreatedByInput | TemplateCreateOrConnectWithoutCreatedByInput[]
@@ -7909,6 +9520,13 @@ export namespace Prisma {
     connectOrCreate?: TeamMemberCreateOrConnectWithoutCreatedByInput | TeamMemberCreateOrConnectWithoutCreatedByInput[]
     createMany?: TeamMemberCreateManyCreatedByInputEnvelope
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
+  }
+
+  export type ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput> | ResourceLinkCreateWithoutCreatedByInput[] | ResourceLinkUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ResourceLinkCreateOrConnectWithoutCreatedByInput | ResourceLinkCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ResourceLinkCreateManyCreatedByInputEnvelope
+    connect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7983,6 +9601,20 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
+  export type ResourceLinkUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput> | ResourceLinkCreateWithoutCreatedByInput[] | ResourceLinkUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ResourceLinkCreateOrConnectWithoutCreatedByInput | ResourceLinkCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ResourceLinkUpsertWithWhereUniqueWithoutCreatedByInput | ResourceLinkUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ResourceLinkCreateManyCreatedByInputEnvelope
+    set?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    disconnect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    delete?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    connect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    update?: ResourceLinkUpdateWithWhereUniqueWithoutCreatedByInput | ResourceLinkUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ResourceLinkUpdateManyWithWhereWithoutCreatedByInput | ResourceLinkUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ResourceLinkScalarWhereInput | ResourceLinkScalarWhereInput[]
+  }
+
   export type TemplateUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<TemplateCreateWithoutCreatedByInput, TemplateUncheckedCreateWithoutCreatedByInput> | TemplateCreateWithoutCreatedByInput[] | TemplateUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: TemplateCreateOrConnectWithoutCreatedByInput | TemplateCreateOrConnectWithoutCreatedByInput[]
@@ -8037,6 +9669,20 @@ export namespace Prisma {
     update?: TeamMemberUpdateWithWhereUniqueWithoutCreatedByInput | TeamMemberUpdateWithWhereUniqueWithoutCreatedByInput[]
     updateMany?: TeamMemberUpdateManyWithWhereWithoutCreatedByInput | TeamMemberUpdateManyWithWhereWithoutCreatedByInput[]
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
+  }
+
+  export type ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput> | ResourceLinkCreateWithoutCreatedByInput[] | ResourceLinkUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ResourceLinkCreateOrConnectWithoutCreatedByInput | ResourceLinkCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ResourceLinkUpsertWithWhereUniqueWithoutCreatedByInput | ResourceLinkUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ResourceLinkCreateManyCreatedByInputEnvelope
+    set?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    disconnect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    delete?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    connect?: ResourceLinkWhereUniqueInput | ResourceLinkWhereUniqueInput[]
+    update?: ResourceLinkUpdateWithWhereUniqueWithoutCreatedByInput | ResourceLinkUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ResourceLinkUpdateManyWithWhereWithoutCreatedByInput | ResourceLinkUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ResourceLinkScalarWhereInput | ResourceLinkScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutCreatedTemplatesInput = {
@@ -8177,6 +9823,26 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedTeamMembersInput, UserUpdateWithoutCreatedTeamMembersInput>, UserUncheckedUpdateWithoutCreatedTeamMembersInput>
+  }
+
+  export type UserCreateNestedOneWithoutCreatedResourceLinksInput = {
+    create?: XOR<UserCreateWithoutCreatedResourceLinksInput, UserUncheckedCreateWithoutCreatedResourceLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedResourceLinksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumLinkCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.LinkCategory
+  }
+
+  export type UserUpdateOneWithoutCreatedResourceLinksNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedResourceLinksInput, UserUncheckedCreateWithoutCreatedResourceLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedResourceLinksInput
+    upsert?: UserUpsertWithoutCreatedResourceLinksInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedResourceLinksInput, UserUpdateWithoutCreatedResourceLinksInput>, UserUncheckedUpdateWithoutCreatedResourceLinksInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -8460,6 +10126,23 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumLinkCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.LinkCategory | EnumLinkCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLinkCategoryFilter<$PrismaModel> | $Enums.LinkCategory
+  }
+
+  export type NestedEnumLinkCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LinkCategory | EnumLinkCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LinkCategory[] | ListEnumLinkCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLinkCategoryWithAggregatesFilter<$PrismaModel> | $Enums.LinkCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLinkCategoryFilter<$PrismaModel>
+    _max?: NestedEnumLinkCategoryFilter<$PrismaModel>
+  }
+
   export type TemplateCreateWithoutCreatedByInput = {
     id?: string
     dltTemplateId: string
@@ -8630,6 +10313,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ResourceLinkCreateWithoutCreatedByInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
+    order?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceLinkUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
+    order?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceLinkCreateOrConnectWithoutCreatedByInput = {
+    where: ResourceLinkWhereUniqueInput
+    create: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ResourceLinkCreateManyCreatedByInputEnvelope = {
+    data: ResourceLinkCreateManyCreatedByInput | ResourceLinkCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TemplateUpsertWithWhereUniqueWithoutCreatedByInput = {
     where: TemplateWhereUniqueInput
     update: XOR<TemplateUpdateWithoutCreatedByInput, TemplateUncheckedUpdateWithoutCreatedByInput>
@@ -8753,6 +10470,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TeamMember"> | Date | string
   }
 
+  export type ResourceLinkUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: ResourceLinkWhereUniqueInput
+    update: XOR<ResourceLinkUpdateWithoutCreatedByInput, ResourceLinkUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<ResourceLinkCreateWithoutCreatedByInput, ResourceLinkUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ResourceLinkUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: ResourceLinkWhereUniqueInput
+    data: XOR<ResourceLinkUpdateWithoutCreatedByInput, ResourceLinkUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type ResourceLinkUpdateManyWithWhereWithoutCreatedByInput = {
+    where: ResourceLinkScalarWhereInput
+    data: XOR<ResourceLinkUpdateManyMutationInput, ResourceLinkUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type ResourceLinkScalarWhereInput = {
+    AND?: ResourceLinkScalarWhereInput | ResourceLinkScalarWhereInput[]
+    OR?: ResourceLinkScalarWhereInput[]
+    NOT?: ResourceLinkScalarWhereInput | ResourceLinkScalarWhereInput[]
+    id?: UuidFilter<"ResourceLink"> | string
+    category?: EnumLinkCategoryFilter<"ResourceLink"> | $Enums.LinkCategory
+    title?: StringFilter<"ResourceLink"> | string
+    url?: StringFilter<"ResourceLink"> | string
+    description?: StringNullableFilter<"ResourceLink"> | string | null
+    order?: IntFilter<"ResourceLink"> | number
+    isActive?: BoolFilter<"ResourceLink"> | boolean
+    createdById?: UuidNullableFilter<"ResourceLink"> | string | null
+    createdAt?: DateTimeFilter<"ResourceLink"> | Date | string
+    updatedAt?: DateTimeFilter<"ResourceLink"> | Date | string
+  }
+
   export type UserCreateWithoutCreatedTemplatesInput = {
     id?: string
     employeeId: string
@@ -8766,6 +10515,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedTemplatesInput = {
@@ -8781,6 +10531,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUncheckedCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchUncheckedCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberUncheckedCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedTemplatesInput = {
@@ -8801,6 +10552,7 @@ export namespace Prisma {
     createdTemplates?: TemplateCreateNestedManyWithoutCreatedByInput
     importBatches?: ImportBatchCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutUpdatedTemplatesInput = {
@@ -8816,6 +10568,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedCreateNestedManyWithoutCreatedByInput
     importBatches?: ImportBatchUncheckedCreateNestedManyWithoutImportedByInput
     createdTeamMembers?: TeamMemberUncheckedCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutUpdatedTemplatesInput = {
@@ -8884,6 +10637,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedTemplatesInput = {
@@ -8899,6 +10653,7 @@ export namespace Prisma {
     updatedTemplates?: TemplateUncheckedUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUncheckedUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutUpdatedTemplatesInput = {
@@ -8925,6 +10680,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUpdateManyWithoutCreatedByNestedInput
     importBatches?: ImportBatchUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUpdatedTemplatesInput = {
@@ -8940,6 +10696,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedUpdateManyWithoutCreatedByNestedInput
     importBatches?: ImportBatchUncheckedUpdateManyWithoutImportedByNestedInput
     createdTeamMembers?: TeamMemberUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ImportBatchUpsertWithoutTemplatesInput = {
@@ -8998,6 +10755,7 @@ export namespace Prisma {
     createdTemplates?: TemplateCreateNestedManyWithoutCreatedByInput
     updatedTemplates?: TemplateCreateNestedManyWithoutUpdatedByInput
     createdTeamMembers?: TeamMemberCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutImportBatchesInput = {
@@ -9013,6 +10771,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedCreateNestedManyWithoutCreatedByInput
     updatedTemplates?: TemplateUncheckedCreateNestedManyWithoutUpdatedByInput
     createdTeamMembers?: TeamMemberUncheckedCreateNestedManyWithoutCreatedByInput
+    createdResourceLinks?: ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutImportBatchesInput = {
@@ -9088,6 +10847,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUpdateManyWithoutCreatedByNestedInput
     updatedTemplates?: TemplateUpdateManyWithoutUpdatedByNestedInput
     createdTeamMembers?: TeamMemberUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImportBatchesInput = {
@@ -9103,6 +10863,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedUpdateManyWithoutCreatedByNestedInput
     updatedTemplates?: TemplateUncheckedUpdateManyWithoutUpdatedByNestedInput
     createdTeamMembers?: TeamMemberUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdResourceLinks?: ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TemplateUpsertWithWhereUniqueWithoutImportBatchInput = {
@@ -9134,6 +10895,7 @@ export namespace Prisma {
     createdTemplates?: TemplateCreateNestedManyWithoutCreatedByInput
     updatedTemplates?: TemplateCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchCreateNestedManyWithoutImportedByInput
+    createdResourceLinks?: ResourceLinkCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedTeamMembersInput = {
@@ -9149,6 +10911,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedCreateNestedManyWithoutCreatedByInput
     updatedTemplates?: TemplateUncheckedCreateNestedManyWithoutUpdatedByInput
     importBatches?: ImportBatchUncheckedCreateNestedManyWithoutImportedByInput
+    createdResourceLinks?: ResourceLinkUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedTeamMembersInput = {
@@ -9180,6 +10943,7 @@ export namespace Prisma {
     createdTemplates?: TemplateUpdateManyWithoutCreatedByNestedInput
     updatedTemplates?: TemplateUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUpdateManyWithoutImportedByNestedInput
+    createdResourceLinks?: ResourceLinkUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedTeamMembersInput = {
@@ -9195,6 +10959,87 @@ export namespace Prisma {
     createdTemplates?: TemplateUncheckedUpdateManyWithoutCreatedByNestedInput
     updatedTemplates?: TemplateUncheckedUpdateManyWithoutUpdatedByNestedInput
     importBatches?: ImportBatchUncheckedUpdateManyWithoutImportedByNestedInput
+    createdResourceLinks?: ResourceLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserCreateWithoutCreatedResourceLinksInput = {
+    id?: string
+    employeeId: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdTemplates?: TemplateCreateNestedManyWithoutCreatedByInput
+    updatedTemplates?: TemplateCreateNestedManyWithoutUpdatedByInput
+    importBatches?: ImportBatchCreateNestedManyWithoutImportedByInput
+    createdTeamMembers?: TeamMemberCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedResourceLinksInput = {
+    id?: string
+    employeeId: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdTemplates?: TemplateUncheckedCreateNestedManyWithoutCreatedByInput
+    updatedTemplates?: TemplateUncheckedCreateNestedManyWithoutUpdatedByInput
+    importBatches?: ImportBatchUncheckedCreateNestedManyWithoutImportedByInput
+    createdTeamMembers?: TeamMemberUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedResourceLinksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedResourceLinksInput, UserUncheckedCreateWithoutCreatedResourceLinksInput>
+  }
+
+  export type UserUpsertWithoutCreatedResourceLinksInput = {
+    update: XOR<UserUpdateWithoutCreatedResourceLinksInput, UserUncheckedUpdateWithoutCreatedResourceLinksInput>
+    create: XOR<UserCreateWithoutCreatedResourceLinksInput, UserUncheckedCreateWithoutCreatedResourceLinksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedResourceLinksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedResourceLinksInput, UserUncheckedUpdateWithoutCreatedResourceLinksInput>
+  }
+
+  export type UserUpdateWithoutCreatedResourceLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdTemplates?: TemplateUpdateManyWithoutCreatedByNestedInput
+    updatedTemplates?: TemplateUpdateManyWithoutUpdatedByNestedInput
+    importBatches?: ImportBatchUpdateManyWithoutImportedByNestedInput
+    createdTeamMembers?: TeamMemberUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedResourceLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdTemplates?: TemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+    updatedTemplates?: TemplateUncheckedUpdateManyWithoutUpdatedByNestedInput
+    importBatches?: ImportBatchUncheckedUpdateManyWithoutImportedByNestedInput
+    createdTeamMembers?: TeamMemberUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TemplateCreateManyCreatedByInput = {
@@ -9255,6 +11100,18 @@ export namespace Prisma {
     email?: string | null
     phone?: string | null
     department?: string | null
+    order?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceLinkCreateManyCreatedByInput = {
+    id?: string
+    category: $Enums.LinkCategory
+    title: string
+    url: string
+    description?: string | null
     order?: number
     isActive?: boolean
     createdAt?: Date | string
@@ -9449,6 +11306,42 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceLinkUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceLinkUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceLinkUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumLinkCategoryFieldUpdateOperationsInput | $Enums.LinkCategory
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

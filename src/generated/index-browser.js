@@ -182,6 +182,19 @@ exports.Prisma.TeamMemberScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ResourceLinkScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  title: 'title',
+  url: 'url',
+  description: 'description',
+  order: 'order',
+  isActive: 'isActive',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -220,11 +233,17 @@ exports.ImportStatus = exports.$Enums.ImportStatus = {
   FAILED: 'FAILED'
 };
 
+exports.LinkCategory = exports.$Enums.LinkCategory = {
+  POLICY: 'POLICY',
+  PMAY: 'PMAY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Template: 'Template',
   ImportBatch: 'ImportBatch',
-  TeamMember: 'TeamMember'
+  TeamMember: 'TeamMember',
+  ResourceLink: 'ResourceLink'
 };
 
 /**
